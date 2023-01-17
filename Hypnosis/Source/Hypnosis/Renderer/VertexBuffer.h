@@ -3,36 +3,25 @@
 #include "Vertex.h"
 #include "BufferLayout.h"
 
-#include "glad/glad.h"
-#include "glm/vec3.hpp"
-#include "glm/gtc/type_ptr.hpp"
+#include <memory>
 
 namespace Hypnosis {
 
 	class VertexBuffer
 	{
 	public:
-		VertexBuffer();
-		VertexBuffer(float* vertices, int count);
-		VertexBuffer(const Vertex* vertices, uint32_t size);
-		virtual ~VertexBuffer();
+		virtual ~VertexBuffer() {}
 
-		void SetData(void* vertices, uint32_t size);
-		//void SetData(const std::vector<Vertex>&);
-		void Bind() const;
-		void Unbind() const;
+		//virtual void SetData(Vertex* vertex) = 0;
 
-		inline const uint32_t& GetCount() const { return count; }
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
-		inline const BufferLayout& GetLayout() const { return layout; }
+		static std::shared_ptr<VertexBuffer> Create(Vertex* vertices, uint32_t size);
 
-		// Make sure to do this BEFORE adding the VertexBuffer into the VertexArray.
-		inline void SetLayout(const BufferLayout& l) { layout = l; }
+		virtual const BufferLayout& GetLayout() const = 0;
+		virtual void SetLayout(const BufferLayout& layout) = 0;
 
-	private:
-		GLuint vbo;
-		uint32_t count;
-		BufferLayout layout;
 	};
 
 }

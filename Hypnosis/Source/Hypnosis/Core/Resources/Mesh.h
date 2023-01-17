@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Hypnosis/Renderer/Vertex.h"
-#include "Hypnosis/Utils/AABB.h"
 
 #include <glm/vec3.hpp>
 #include <vector>
@@ -22,7 +21,6 @@ namespace Hypnosis {
 		void Draw();
 
 		inline const std::vector<Vertex>& GetVertices() { return vertices; }
-		inline AABB& GetAABB() { return aabb; }
 
 	private:
 		void SetBuffers();
@@ -30,7 +28,6 @@ namespace Hypnosis {
 	private:
 		std::vector<Vertex> vertices;
 		std::vector<uint32_t> indices;
-		AABB aabb;
 
 		std::shared_ptr<VertexArray> vao;
 		std::shared_ptr<VertexBuffer> vbo;

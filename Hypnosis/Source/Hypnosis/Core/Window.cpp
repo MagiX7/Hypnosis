@@ -5,7 +5,9 @@
 #include "Hypnosis/Events/MouseEvent.h"
 #include "Log.h"
 
-#include "glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
+
+//#include <glad/glad.h>
 
 #include <iostream>
 
@@ -26,7 +28,6 @@ namespace Hypnosis {
 		props.width = width;
 		props.height = height;
 		props.title = title;
-
 
 		Init();
 	}
@@ -54,22 +55,14 @@ namespace Hypnosis {
 		glfwSetErrorCallback(GLFWErrorCallback);
 
 		window = glfwCreateWindow(props.width, props.height, props.title.c_str(), 0, 0);
-			
+		
+		context = new OpenGLContext(window);
+		if (!context->Init())
+		{
+			ZN_CORE_ERROR("[ERROR] Couldnt initialize OpenGL Context...");
+		}
+
 		if (window) ZN_CORE_INFO("[INFO] Window Initialization...");
-
-		glfwMakeContextCurrent(window);
-
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		if (status == 0)
-		{
-			ZN_CORE_INFO("[INFO] GLAD Loader Failed.");
-			return false;
-		}
-		else
-		{
-			ZN_CORE_INFO("[INFO] GLAD Loader Correct.");
-			ZN_CORE_INFO("[INFO] OpenGL Version: {0}", glGetString(GL_VERSION));
-		}
 
 		glfwSetWindowUserPointer(window, &props);
 
@@ -181,7 +174,7 @@ namespace Hypnosis {
 	void Window::SwapBuffers()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(window);
+		context->SwapBuffers();
 	}
 
 	bool Window::ShouldClose()

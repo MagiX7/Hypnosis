@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "Window.h"
 #include "Input.h"
-#include "Hypnosis/Renderer/Renderer3D.h"
+#include "Hypnosis/Renderer/Renderer.h"
 
 #include "Log.h"
 
@@ -25,7 +25,7 @@ namespace Hypnosis {
 		window = std::make_unique<Window>(1720, 920);
 		window->SetEventCallback(ZN_BIND_EVENT_FN(Application::OnEvent));
 
-		Renderer3D::GetInstance()->Init();
+		Renderer::GetInstance()->Init();
 
 		imguiLayer = new ImGuiLayer();
 		PushOverlay(imguiLayer);
@@ -42,7 +42,7 @@ namespace Hypnosis {
 	{
 		while (isRunning)
 		{
-			Renderer3D::GetInstance()->Clear({ 0.2f,0.2f,0.2f,1.0f });
+			Renderer::GetInstance()->Clear({ 0.2f,0.2f,0.2f,1.0f });
 
 			float t = glfwGetTime();
 			timestep = t - lastFrameTime;
@@ -118,7 +118,7 @@ namespace Hypnosis {
 			return false;
 		}
 		
-		Renderer3D::GetInstance()->OnResize(e.GetWidth(), e.GetHeight());
+		Renderer::GetInstance()->OnResize(e.GetWidth(), e.GetHeight());
 		
 		minimized = false;
 	}

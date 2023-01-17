@@ -1,56 +1,20 @@
 #include "VertexBuffer.h"
 
+#include "Renderer.h"
+
+#include "Platform/OpenGL/OpenGLVertexBuffer.h"
+#include "Platform/OpenGL/OpenGLIndexBuffer.h"
+
 namespace Hypnosis {
 
-	VertexBuffer::VertexBuffer() : count(0)
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(Vertex* vertices, uint32_t size)
 	{
-		glGenBuffers(1, &vbo);
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::OPENGL:
+			{
+				return std::dynamic_pointer_cast<VertexBuffer>(std::make_shared<OpenGLVertexBuffer>(vertices, size));
+			}
+		}
 	}
-
-	VertexBuffer::VertexBuffer(float* vertices, int count)
-	{
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), vertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		
-		this->count = count;
-	}
-
-	VertexBuffer::VertexBuffer(const Vertex* vertices, uint32_t size)
-	{
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		count = size / sizeof(uint32_t);
-	}
-
-	VertexBuffer::~VertexBuffer()
-	{
-		glDeleteBuffers(1, &vbo);
-	}
-
-	void VertexBuffer::SetData(void* vertices, uint32_t size)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		//glBufferSubData(GL_ARRAY_BUFFER, 0, size, vertices);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		count =  size / sizeof(uint32_t);
-	}
-
-	void VertexBuffer::Bind() const
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	}
-
-	void VertexBuffer::Unbind() const
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-
 }
-

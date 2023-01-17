@@ -1,41 +1,20 @@
 #include "IndexBuffer.h"
 
+#include "Renderer.h"
+
+#include "Platform/OpenGL/OpenGLIndexBuffer.h"
+
 namespace Hypnosis {
 
-	IndexBuffer::IndexBuffer() : count(0)
+	std::shared_ptr<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
-		glGenBuffers(1, &ibo);
-	}
-
-	IndexBuffer::IndexBuffer(const uint32_t* indices, uint32_t count) : count(count)
-	{
-		glGenBuffers(1, &ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), &indices[0], GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	}
-
-	IndexBuffer::~IndexBuffer()
-	{
-		glDeleteBuffers(1, &ibo);
-	}
-
-	void IndexBuffer::SetData(const uint32_t* indices, uint32_t count)
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		this->count += count;
-	}
-
-	void IndexBuffer::Bind() const
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	}
-
-	void IndexBuffer::Unbind() const
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::OPENGL:
+			{
+				return std::dynamic_pointer_cast<IndexBuffer>(std::make_shared<OpenGLIndexBuffer>(indices, count));
+			}
+		}
 	}
 
 }

@@ -6,12 +6,11 @@
 #include "Hypnosis/Core/PerspectiveCamera.h"
 
 #include "Hypnosis/Renderer/Shader.h"
-#include "Hypnosis/Renderer/Texture2D.h"
 
 #include "Hypnosis/Core/TimeStep.h"
 #include "Hypnosis/Core/Log.h"
 
-#include "Hypnosis/Renderer/Skybox.h"
+//#include "Hypnosis/Renderer/Skybox.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtx/orthonormalize.hpp>
@@ -28,8 +27,6 @@ namespace Hypnosis {
 		int start = path.find_last_of("\\") + 1;
 		int end = path.find_last_of(".");
 		name = path.substr(start, end - start);
-
-		aabb = AABB();
 	}
 
 	Model::~Model()
@@ -88,7 +85,5 @@ namespace Hypnosis {
 		for (size_t i = 0; i < vertices.size(); ++i)
 			positions[i] = vertices[i].position;
 
-		aabb.Enclose(mesh->GetAABB());
-		aabb.RefreshData();
 	}
 }

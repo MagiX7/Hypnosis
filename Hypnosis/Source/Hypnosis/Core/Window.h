@@ -1,8 +1,9 @@
 #pragma once
 
-#include "GLFW/glfw3.h"
-
 #include "Hypnosis/Events/Event.h"
+#include "Hypnosis/Renderer/GraphicsContext.h"
+
+#include <GLFW/glfw3.h>
 
 #include <string>
 #include <functional>
@@ -38,6 +39,7 @@ namespace Hypnosis {
 
 	private:
 		GLFWwindow* window;
+		GraphicsContext* context;
 
 		struct WindowProperties
 		{

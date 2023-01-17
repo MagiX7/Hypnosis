@@ -1,46 +1,30 @@
 #pragma once
 
-typedef unsigned int GLuint;
+#include <memory>
 
 namespace Hypnosis {
 
 	class FrameBuffer
 	{
 	public:
-		FrameBuffer(int w, int h, int channel);
-		~FrameBuffer();
+		virtual ~FrameBuffer() {};
 
-		void Bind();
-		void Unbind();
+		static std::shared_ptr<FrameBuffer> Create(int w, int h);
 
-		void SetFramebuffer();
-		void Resize(int w, int h);
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 
-		void GetColorData(unsigned int* buffer, int channels);
-		void GetNormalsData(void* buffer);
-		void GetDepthData(void* buffer);
+		virtual void SetFramebuffer() = 0;
+		virtual void Resize(int w, int h) = 0;
 
-		inline GLuint GetId() const { return framebuffer; }
-		inline GLuint GetColorId() const { return colorTexture; }
-		inline GLuint GetNormalsId() const { return normalTexture; }
-		inline GLuint GetDepthId() const { return depthTexture; }
-		inline int GetWidth() const { return width; }
-		inline int GetHeight() const { return height; }
+		virtual unsigned int GetId() const = 0;
+		virtual unsigned int GetColorId() const = 0;
+		virtual unsigned int GetNormalsId() const = 0;
+		virtual unsigned int GetDepthId() const = 0;
 
-	private:
-		int width;
-		int height;
-		int channelId;
+		virtual int GetWidth() const = 0;
+		virtual int GetHeight() const = 0;
 
-		GLuint framebuffer;
-		GLuint quadFramebuffer;
-		GLuint renderedBufferRenderer;
-		GLuint depthRenderbuffer;
-
-		GLuint rboDepthStencil;
-		GLuint colorTexture;
-		GLuint normalTexture;
-		GLuint depthTexture;
 	};
 
 }

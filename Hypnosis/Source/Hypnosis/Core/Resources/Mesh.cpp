@@ -26,9 +26,11 @@ namespace Hypnosis {
 
 	void Mesh::SetBuffers()
 	{
-		vao = std::make_shared<VertexArray>();
+		vao = VertexArray::Create();
 
-		vbo = std::make_shared<VertexBuffer>(&vertices[0], vertices.size() * sizeof(Vertex));
+		vbo.reset();
+		vbo = VertexBuffer::Create(vertices.data(), vertices.size() * sizeof(Vertex));
+
 		vbo->SetLayout({
 			{ShaderDataType::VEC3F, "position"},
 			{ShaderDataType::VEC3F, "normals"},
@@ -36,14 +38,10 @@ namespace Hypnosis {
 			{ShaderDataType::VEC3F, "tangents"},
 			{ShaderDataType::VEC3F, "biTangents"},
 		});
-		vao->AddVertexBuffer(&*vbo);
+		vao->AddVertexBuffer(vbo);
+		
+		ibo = IndexBuffer::Create(&indices[0], indices.size());
+		vao->SetIndexBuffer(ibo);
 
-		ibo = std::make_shared<IndexBuffer>(&indices[0], indices.size());
-		vao->SetIndexBuffer(&*ibo);
-
-
-		aabb = AABB();
-		for (int i = 0; i < vertices.size(); ++i)
-			aabb.Enclose(vertices[i].position);
 	}
 }

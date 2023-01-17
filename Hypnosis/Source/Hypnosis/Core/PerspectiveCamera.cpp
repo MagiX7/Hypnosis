@@ -5,7 +5,6 @@
 #include "PerspectiveCamera.h"
 #include "TimeStep.h"
 
-#include "Hypnosis/Utils/AABB.h"
 
 #include "Log.h"
 

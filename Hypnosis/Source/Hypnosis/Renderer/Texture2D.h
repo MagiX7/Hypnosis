@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 namespace Hypnosis {
@@ -7,36 +8,19 @@ namespace Hypnosis {
 	class Texture2D
 	{
 	public:
-		Texture2D(uint32_t* data, int w, int h);
-		Texture2D(const std::string& path);
-		~Texture2D();
+		virtual ~Texture2D() {};
 
-		void SetData(uint32_t* data);
+		static std::shared_ptr<Texture2D> Create(const std::string& path);
 
-		void Bind(uint32_t slot = 0);
-		void BindImage();
-		void Unbind();
-		void UnbindImage();
+		virtual void Bind(uint32_t slot = 0) = 0;
 
-		inline const void* GetData() const { return data; }
+		virtual unsigned int GetWidth() = 0;
+		virtual unsigned int GetHeight() = 0;
 
-		inline unsigned int GetWidth() { return width; }
-		inline unsigned int GetHeight() { return height; }
+		virtual inline uint32_t GetId() = 0;
 
-		inline uint32_t GetId() { return rendererId; }
+		virtual const std::string& GetName() = 0;
 
-		inline const std::string& GetName() { return name; }
-
-		inline void SetName(std::string value) { name = value; }
-
-	private:
-		uint32_t rendererId;
-
-		std::string path;
-		std::string name;
-		unsigned int width;
-		unsigned int height;
-		void* data;
 	};
 
 }

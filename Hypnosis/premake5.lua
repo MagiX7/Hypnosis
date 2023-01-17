@@ -11,6 +11,8 @@ project "Hypnosis"
     {
         "Source/**.h",
         "Source/**.cpp",
+        "Platform/**.h",
+        "Platform/**.cpp",
         "%{prj.location}/Dependencies/stb_image/**.h",
         "%{prj.location}/Dependencies/stb_image/**.cpp",
         "%{prj.location}/Dependencies/spdlog/src/**.h",
