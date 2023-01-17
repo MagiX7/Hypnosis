@@ -19,7 +19,7 @@ namespace Hypnosis {
 		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuf) override;
 
 		std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() { return vertexBuffers; }
-		std::shared_ptr<IndexBuffer> GetIndexBuffer() { return indexBuffer; }
+		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() override { return indexBuffer; }
 
 	private:
 		uint32_t vao;

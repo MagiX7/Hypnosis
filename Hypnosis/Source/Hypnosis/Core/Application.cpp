@@ -25,7 +25,7 @@ namespace Hypnosis {
 		window = std::make_unique<Window>(1720, 920);
 		window->SetEventCallback(ZN_BIND_EVENT_FN(Application::OnEvent));
 
-		Renderer::GetInstance()->Init();
+		Renderer::Init();
 
 		imguiLayer = new ImGuiLayer();
 		PushOverlay(imguiLayer);
@@ -42,7 +42,7 @@ namespace Hypnosis {
 	{
 		while (isRunning)
 		{
-			Renderer::GetInstance()->Clear({ 0.2f,0.2f,0.2f,1.0f });
+			RenderCommand::Clear({ 0.2f,0.2f,0.2f,1.0f });
 
 			float t = glfwGetTime();
 			timestep = t - lastFrameTime;
@@ -118,7 +118,7 @@ namespace Hypnosis {
 			return false;
 		}
 		
-		Renderer::GetInstance()->OnResize(e.GetWidth(), e.GetHeight());
+		RenderCommand::OnResize(e.GetWidth(), e.GetHeight());
 		
 		minimized = false;
 	}

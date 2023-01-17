@@ -1,28 +1,31 @@
 #pragma once
 
+#include "RenderCommand.h"
+
 #include <glm/glm.hpp>
 #include <memory>
 
 namespace Hypnosis {
 
-	enum class RendererAPI
-	{
-		NONE = 0,
-		OPENGL,
-		VULKAN
-	};
-
 	class Renderer
 	{
 	public:
-		static Renderer* GetInstance();
+		//static Renderer* GetInstance();
 
-		void Init();
-		void ShutDown();
-		void Clear(const glm::vec4& color);
-		void OnResize(int width, int height);
+		static void Init();
+		static void ShutDown();
+		//static void Clear(const glm::vec4& color);
+		//static void OnResize(int width, int height);
 
-		inline static RendererAPI GetAPI() { return rendererApi; }
+		static void BeginScene();
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+
+
+
 
 	private:
 		Renderer();
@@ -32,9 +35,6 @@ namespace Hypnosis {
 		Renderer& operator=(const Renderer&) = delete;
 
 	private:
-		static Renderer* instance;
-
-		static RendererAPI rendererApi;
-
+		//static Renderer* instance;
 	};
 }

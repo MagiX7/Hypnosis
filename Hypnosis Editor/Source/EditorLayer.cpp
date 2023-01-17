@@ -30,12 +30,16 @@ namespace Hypnosis {
 
 	void EditorLayer::OnUpdate(const TimeStep ts)
 	{
-		fbo->Bind();
+		Renderer::BeginScene();
 		{
-			Renderer::GetInstance()->Clear({ 0.1, 0.1, 0.1, 1 });
-			model->Draw();
+			fbo->Bind();
+			{
+				RenderCommand::Clear({ 0.1, 0.1, 0.1, 1 });
+				model->Draw();
+			}
+			fbo->Unbind();
 		}
-		fbo->Unbind();
+		Renderer::EndScene();
 	}
 
 	void EditorLayer::OnImGuiRender()
@@ -46,7 +50,7 @@ namespace Hypnosis {
 		if (viewportSize.x != dimensions.x || viewportSize.y != dimensions.y)
 		{
 			fbo->Resize(dimensions.x, dimensions.y);
-			Renderer::GetInstance()->OnResize(dimensions.x, dimensions.y);
+			Renderer::OnResize(dimensions.x, dimensions.y);
 			//camera.SetApsectRatio(dimensions.x / dimensions.y);
 			ZN_TRACE("Viewport Resized");
 			viewportSize = { dimensions.x, dimensions.y };

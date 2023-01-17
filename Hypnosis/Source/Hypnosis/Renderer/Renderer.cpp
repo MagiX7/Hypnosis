@@ -8,8 +8,7 @@
 
 namespace Hypnosis {
 
-	Renderer* Renderer::instance = nullptr;
-	RendererAPI Renderer::rendererApi = RendererAPI::OPENGL;
+	//Renderer* Renderer::instance = nullptr;
 
 	Renderer::Renderer()
 	{
@@ -20,13 +19,13 @@ namespace Hypnosis {
 	{
 	}
 
-	Renderer* Renderer::GetInstance()
+	/*Renderer* Renderer::GetInstance()
 	{
 		if (!instance)
 			instance = new Renderer();
 
 		return instance;
-	}
+	}*/
 
 	void Renderer::Init()
 	{
@@ -41,15 +40,20 @@ namespace Hypnosis {
 	{
 	}
 
-	void Renderer::Clear(const glm::vec4& color)
+	void Renderer::BeginScene()
 	{
-		glClearColor(color.r, color.g, color.b, color.a);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	}
 
-	void Renderer::OnResize(int width, int height)
+	void Renderer::EndScene()
 	{
-		glViewport(0, 0, width, height);
+
+	}
+
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray)
+	{
+		vertexArray->Bind();
+		RenderCommand::DrawIndexed(vertexArray);
 	}
 
 }

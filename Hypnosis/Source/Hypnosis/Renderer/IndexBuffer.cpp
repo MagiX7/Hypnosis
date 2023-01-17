@@ -10,7 +10,7 @@ namespace Hypnosis {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OPENGL:
+			case RendererAPI::API::OPENGL:
 			{
 				return std::dynamic_pointer_cast<IndexBuffer>(std::make_shared<OpenGLIndexBuffer>(indices, count));
 			}

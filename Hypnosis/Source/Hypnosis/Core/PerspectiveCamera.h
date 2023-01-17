@@ -16,8 +16,6 @@ namespace Hypnosis {
 		~PerspectiveCamera();
 		void Update(TimeStep ts);
 
-		//void IsAABBInside(AABB& aabb);
-
 		void Scroll(TimeStep ts);
 		void UpdateFovAndAspectRatio(float width, float height);
 		void SetApsectRatio(float value);

@@ -22,7 +22,7 @@ namespace Hypnosis {
 	{
 		direction = glm::normalize(position - target);
 		right = glm::normalize(glm::cross({ 0,1,0 }, direction));
-		this->up = glm::cross(direction, right);
+		up = glm::cross(direction, right);
 
 		forward = glm::normalize(glm::cross(up, right));
 		rotation = glm::vec3(0, 0, 0);
@@ -40,10 +40,6 @@ namespace Hypnosis {
 	{
 		HandleInput(ts);
 	}
-
-	//void PerspectiveCamera::IsAABBInside(AABB& aabb)
-	//{
-	//}
 
 	void PerspectiveCamera::Scroll(TimeStep ts)
 	{

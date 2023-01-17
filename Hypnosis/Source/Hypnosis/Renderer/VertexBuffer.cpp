@@ -3,7 +3,6 @@
 #include "Renderer.h"
 
 #include "Platform/OpenGL/OpenGLVertexBuffer.h"
-#include "Platform/OpenGL/OpenGLIndexBuffer.h"
 
 namespace Hypnosis {
 
@@ -11,7 +10,7 @@ namespace Hypnosis {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OPENGL:
+			case RendererAPI::API::OPENGL:
 			{
 				return std::dynamic_pointer_cast<VertexBuffer>(std::make_shared<OpenGLVertexBuffer>(vertices, size));
 			}

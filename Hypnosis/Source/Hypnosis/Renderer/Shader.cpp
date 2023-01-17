@@ -10,7 +10,7 @@ namespace Hypnosis {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OPENGL:
+			case RendererAPI::API::OPENGL:
 			{
 				return std::dynamic_pointer_cast<Shader>(std::make_shared<OpenGLShader>(path));
 			}
