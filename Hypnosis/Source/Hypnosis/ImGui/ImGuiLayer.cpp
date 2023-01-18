@@ -9,7 +9,7 @@
 
 namespace Hypnosis {
 
-	ImGuiLayer::ImGuiLayer() : EngineLayer("ImGui Layer")
+	ImGuiLayer::ImGuiLayer() : Layer("ImGui Layer")
 	{
 	}
 

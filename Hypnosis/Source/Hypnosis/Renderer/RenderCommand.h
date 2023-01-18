@@ -8,10 +8,12 @@ namespace Hypnosis {
 	{
 	public:
 
+		inline static void Init() { rendererAPI->Init(); }
+
 		inline static void Clear(const glm::vec4& color) { rendererAPI->Clear(color); }
 		inline static void OnResize(int width, int height) { rendererAPI->OnResize(width, height); }
 
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray)
 		{
 			rendererAPI->DrawIndexed(vertexArray);
 		}

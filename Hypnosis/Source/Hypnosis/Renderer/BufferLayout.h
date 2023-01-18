@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
-
 #include <initializer_list>
 #include <utility>
 #include <string>
@@ -40,25 +38,6 @@ namespace Hypnosis {
 		case ShaderDataType::VEC3I:	 return 4 * 3;
 		case ShaderDataType::VEC4I:	 return 4 * 4;
 		case ShaderDataType::BOOL:	 return 1;
-		}
-		return 0;
-	}
-
-	static GLenum GetOpenGLRawTypeFromShaderDataType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case ShaderDataType::FLOAT:  return GL_FLOAT;
-		case ShaderDataType::VEC2F:  return GL_FLOAT;
-		case ShaderDataType::VEC3F:  return GL_FLOAT;
-		case ShaderDataType::VEC4F:  return GL_FLOAT;
-		case ShaderDataType::MAT3:	 return GL_FLOAT;
-		case ShaderDataType::MAT4:	 return GL_FLOAT;
-		case ShaderDataType::INT:	 return GL_INT;
-		case ShaderDataType::VEC2I:	 return GL_INT;
-		case ShaderDataType::VEC4I:	 return GL_INT;
-		case ShaderDataType::VEC3I:	 return GL_INT;
-		case ShaderDataType::BOOL:	 return GL_BOOL;
 		}
 		return 0;
 	}

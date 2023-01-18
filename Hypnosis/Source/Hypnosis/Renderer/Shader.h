@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hypnosis/Core/Core.h"
+
 #include <glm/mat4x4.hpp>
 #include <glm/mat3x3.hpp>
 #include <glm/vec2.hpp>
@@ -14,7 +16,7 @@ namespace Hypnosis {
 	public:
 		virtual ~Shader() {}
 
-		static std::shared_ptr<Shader> Create(const std::string& path);
+		static Ref<Shader> Create(const std::string& path);
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;

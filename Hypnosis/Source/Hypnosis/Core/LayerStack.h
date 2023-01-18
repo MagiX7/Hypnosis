@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EngineLayer.h"
+#include "Layer.h"
 #include <vector>
 
 namespace Hypnosis {
@@ -11,17 +11,17 @@ namespace Hypnosis {
 		LayerStack();
 		virtual ~LayerStack();
 
-		void PushLayer(EngineLayer* layer);
-		void PushOverlay(EngineLayer* overlay);
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
 
-		void PopLayer(EngineLayer* layer);
-		void PopOverlay(EngineLayer* overlay);
+		void PopLayer(Layer* layer);
+		void PopOverlay(Layer* overlay);
 
-		std::vector<EngineLayer*>::iterator begin() { return layers.begin(); }
-		std::vector<EngineLayer*>::iterator end() { return layers.end(); }
+		std::vector<Layer*>::iterator begin() { return layers.begin(); }
+		std::vector<Layer*>::iterator end() { return layers.end(); }
 
 	private:
-		std::vector<EngineLayer*> layers;
+		std::vector<Layer*> layers;
 		unsigned int layerIndex = 0;
 
 	};

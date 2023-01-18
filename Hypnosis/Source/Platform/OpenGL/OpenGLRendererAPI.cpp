@@ -4,6 +4,13 @@
 
 namespace Hypnosis {
 
+	void OpenGLRendererAPI::Init()
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_CULL_FACE);
+		glDepthFunc(GL_LEQUAL);
+	}
 
 	void OpenGLRendererAPI::Clear(const glm::vec4& color)
 	{
@@ -16,7 +23,7 @@ namespace Hypnosis {
 		glViewport(0, 0, width, height);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
 	{
 		vertexArray->GetIndexBuffer()->Bind();
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, 0);

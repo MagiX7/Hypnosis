@@ -56,15 +56,15 @@
 //		unsigned int hdrTexture, brdfTexture;
 //		unsigned int prefilterMap;
 //
-//		std::unique_ptr<OpenGLVertexBuffer> cubeVbo;
-//		std::unique_ptr<OpenGLVertexArray> cubeVao;
-//		std::unique_ptr<OpenGLVertexBuffer> quadVbo;
-//		std::unique_ptr<OpenGLVertexArray> quadVao;
-//		std::unique_ptr<OpenGLShader> skyboxShader;
-//		std::unique_ptr<OpenGLShader> hdrToCubemapShader;
-//		std::unique_ptr<OpenGLShader> irradianceMapShader;
-//		std::unique_ptr<OpenGLShader> prefilterShader;
-//		std::unique_ptr<OpenGLShader> brdfShader;
+//		Scope<OpenGLVertexBuffer> cubeVbo;
+//		Scope<OpenGLVertexArray> cubeVao;
+//		Scope<OpenGLVertexBuffer> quadVbo;
+//		Scope<OpenGLVertexArray> quadVao;
+//		Scope<OpenGLShader> skyboxShader;
+//		Scope<OpenGLShader> hdrToCubemapShader;
+//		Scope<OpenGLShader> irradianceMapShader;
+//		Scope<OpenGLShader> prefilterShader;
+//		Scope<OpenGLShader> brdfShader;
 //		
 //		float reflectionLod;
 //		bool enableReflection;

@@ -28,7 +28,7 @@ namespace Hypnosis {
     }
 
     // This should be called AFTER setting the layout to the VertexBuffer.
-    void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuf)
+    void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuf)
     {
         glBindVertexArray(vao);
         vertexBuf->Bind();
@@ -53,7 +53,7 @@ namespace Hypnosis {
         }
     }
 
-    void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuf)
+    void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuf)
     {
         glBindVertexArray(vao);
         indexBuf->Bind();

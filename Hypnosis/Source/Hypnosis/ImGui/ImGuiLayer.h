@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hypnosis/Core/EngineLayer.h"
+#include "Hypnosis/Core/Layer.h"
 
 #include "Hypnosis/Events/ApplicationEvent.h"
 #include "Hypnosis/Events/Event.h"
@@ -10,7 +10,7 @@
 
 namespace Hypnosis {
 
-	class ImGuiLayer : public EngineLayer
+	class ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();

@@ -3,6 +3,7 @@
 #include "Hypnosis/Core/Input.h"
 
 #include "Model.h"
+#include "Hypnosis/Core/Importers/ModelImporter.h"
 #include "Hypnosis/Core/PerspectiveCamera.h"
 
 #include "Hypnosis/Renderer/Shader.h"
@@ -27,6 +28,8 @@ namespace Hypnosis {
 		int start = path.find_last_of("\\") + 1;
 		int end = path.find_last_of(".");
 		name = path.substr(start, end - start);
+
+		ModelImporter::ImportModel(path, *this);
 	}
 
 	Model::~Model()
@@ -75,7 +78,7 @@ namespace Hypnosis {
 		transform = glm::toMat4(glm::quat(0, 0, 0, 1));
 	}
 
-	void Model::AddMesh(Mesh* mesh)
+	void Model::AddMesh(Ref<Mesh> mesh)
 	{
 		meshes.push_back(mesh);
 		std::vector<Vertex> vertices = mesh->GetVertices();

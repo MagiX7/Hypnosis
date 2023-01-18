@@ -13,13 +13,13 @@ project "Hypnosis"
         "Source/**.cpp",
         "Platform/**.h",
         "Platform/**.cpp",
-        "%{prj.location}/Dependencies/stb_image/**.h",
-        "%{prj.location}/Dependencies/stb_image/**.cpp",
-        "%{prj.location}/Dependencies/spdlog/src/**.h",
-        "%{prj.location}/Dependencies/spdlog/src/**.cpp",
-        "%{prj.location}/Dependencies/spdlog/src/**.cpp",
-        "%{prj.location}/Dependencies/parson/parson.h",
-        "%{prj.location}/Dependencies/parson/parson.c",
+        "Dependencies/stb_image/**.h",
+        "Dependencies/stb_image/**.cpp",
+        "Dependencies/spdlog/src/**.h",
+        "Dependencies/spdlog/src/**.cpp",
+        "Dependencies/spdlog/src/**.cpp",
+        "Dependencies/parson/parson.h",
+        "Dependencies/parson/parson.c",
     }
 
     characterset ("MBCS")
@@ -50,6 +50,7 @@ project "Hypnosis"
         "Glad",
         "ImGui",
         "assimp",
+        "opengl32.lib",
     }
 
     filter "system:windows"

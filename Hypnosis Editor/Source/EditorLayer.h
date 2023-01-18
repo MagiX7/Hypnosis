@@ -4,7 +4,7 @@
 
 namespace Hypnosis {
 
-	class EditorLayer : public EngineLayer
+	class EditorLayer : public Layer
 	{
 	public:
 		EditorLayer();

@@ -63,22 +63,22 @@ namespace Hypnosis {
 		}
 	}
 
-	void Application::PushLayer(EngineLayer* layer)
+	void Application::PushLayer(Layer* layer)
 	{
 		layerStack.PushLayer(layer);
 	}
 
-	void Application::PopLayer(EngineLayer* layer)
+	void Application::PopLayer(Layer* layer)
 	{
 		layerStack.PopLayer(layer);
 	}
 
-	void Application::PushOverlay(EngineLayer* overlay)
+	void Application::PushOverlay(Layer* overlay)
 	{
 		layerStack.PushOverlay(overlay);
 	}
 
-	void Application::PopOverlay(EngineLayer* overlay)
+	void Application::PopOverlay(Layer* overlay)
 	{
 		layerStack.PopOverlay(overlay);
 	}

@@ -8,9 +8,11 @@ namespace Hypnosis {
 	{
 	public:
 
+		virtual void Init() override;
+
 		virtual void Clear(const glm::vec4& color) override;
 		virtual void OnResize(int width, int height) override;
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
 	};
 
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hypnosis/Core/Core.h"
+
 #include "Hypnosis/Renderer/Vertex.h"
 
 #include <glm/vec3.hpp>
@@ -22,6 +24,8 @@ namespace Hypnosis {
 
 		inline const std::vector<Vertex>& GetVertices() { return vertices; }
 
+		inline const Ref<VertexArray>& GetVertexArray() { return vao; }
+
 	private:
 		void SetBuffers();
 
@@ -29,9 +33,9 @@ namespace Hypnosis {
 		std::vector<Vertex> vertices;
 		std::vector<uint32_t> indices;
 
-		std::shared_ptr<VertexArray> vao;
-		std::shared_ptr<VertexBuffer> vbo;
-		std::shared_ptr<IndexBuffer> ibo;
+		Ref<VertexArray> vao;
+		Ref<VertexBuffer> vbo;
+		Ref<IndexBuffer> ibo;
 	};
 
 }

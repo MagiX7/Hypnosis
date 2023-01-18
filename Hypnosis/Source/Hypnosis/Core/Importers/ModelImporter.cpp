@@ -1,9 +1,10 @@
 #include "ModelImporter.h"
 #include "Hypnosis/Core/Log.h"
+#include "Hypnosis/Core/Core.h"
 
 namespace Hypnosis {
  
-    Model* ModelImporter::ImportModel(std::string path)
+    void ModelImporter::ImportModel(std::string path, Model& model)
     {
         Assimp::Importer importer;
         std::string exts;
@@ -33,7 +34,7 @@ namespace Hypnosis {
         if (std::find(extensions.begin(), extensions.end(), fileExtension) == extensions.end())
         {
             ZN_CORE_ERROR("Model Format {0} from {1} not supported", fileExtension, path.c_str());
-            return nullptr;
+            return;
         }
 
         const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -41,15 +42,14 @@ namespace Hypnosis {
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
             ZN_CORE_ERROR("Assimp error: {0}", importer.GetErrorString());
-            return nullptr;
+            return;
         }
 
-        Model* model = new Model(path);
-        ProcessNode(scene->mRootNode, scene, *model);
+        //Model* model = new Model(path);
+        ProcessNode(scene->mRootNode, scene, model);
 
         ZN_CORE_INFO("[INFO] Model {0} loaded", path.c_str());
 
-        return model;
     }
 
     void ModelImporter::ProcessNode(aiNode* node, const aiScene* scene, Model& model)
@@ -67,7 +67,7 @@ namespace Hypnosis {
         }
     }
 
-    Mesh* ModelImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+    Ref<Mesh> ModelImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     {
         std::vector<Vertex> vertices;
         std::vector<uint32_t> indices;
@@ -126,7 +126,7 @@ namespace Hypnosis {
             ComputeTangentsAndBiTangents(vertices, mesh->mNumFaces);
         }
 
-        return new Mesh(vertices, indices);
+        return CreateRef<Mesh>(vertices, indices);
     }
 
     void ModelImporter::ComputeTangentsAndBiTangents(std::vector<Vertex>& vertices, unsigned int indicesCount)

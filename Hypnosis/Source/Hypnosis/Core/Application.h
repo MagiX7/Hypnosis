@@ -22,10 +22,10 @@ namespace Hypnosis {
 		void Run();
 		void OnEvent(Event& e);
 
-		void PushLayer(EngineLayer* layer);
-		void PopLayer(EngineLayer* layer);
-		void PushOverlay(EngineLayer* overlay);
-		void PopOverlay(EngineLayer* overlay);
+		void PushLayer(Layer* layer);
+		void PopLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
+		void PopOverlay(Layer* overlay);
 
 		inline Window& GetWindow() { return *window; }
 		inline float GetTimeStep() { return timestep; }
@@ -46,7 +46,7 @@ namespace Hypnosis {
 		TimeStep timestep = 0;
 		float lastFrameTime = 0;
 		
-		std::unique_ptr<Window> window;
+		Scope<Window> window;
 
 		LayerStack layerStack;
 		ImGuiLayer* imguiLayer;

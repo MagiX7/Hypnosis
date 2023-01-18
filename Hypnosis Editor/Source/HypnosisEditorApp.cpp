@@ -1,9 +1,6 @@
-#include "Hypnosis.h"
 #include "Hypnosis/Core/EntryPoint.h"
 
 #include "EditorLayer.h"
-
-using namespace Assimp;
 
 namespace Hypnosis {
 

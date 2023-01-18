@@ -20,15 +20,17 @@ namespace Hypnosis {
 		void Draw() const;
 		void ResetRotation();
 
-		void AddMesh(Mesh* mesh);
+		void AddMesh(Ref<Mesh> mesh);
 
 		inline const glm::mat4& GetTransform() { return transform; }
 		inline const std::string& GetName() { return name; }
 
+		inline const std::vector<Ref<Mesh>>& GetMeshes() { return meshes; }
+
 	private:
 		std::string path;
 		std::string name;
-		std::vector<Mesh*> meshes;
+		std::vector<Ref<Mesh>> meshes;
 
 		glm::mat4 transform;
 		glm::quat rotation;

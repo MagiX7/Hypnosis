@@ -2,6 +2,6 @@
 
 namespace Hypnosis {
 
-	RendererAPI::API api = RendererAPI::API::OPENGL;
+	RendererAPI::API RendererAPI::api = RendererAPI::API::OPENGL;
 
 }

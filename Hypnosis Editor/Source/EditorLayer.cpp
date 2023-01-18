@@ -17,7 +17,7 @@ namespace Hypnosis {
 	void EditorLayer::OnAttach()
 	{
 		//model = new Model("Assets/Models/Cerberus.fbx");
-		model = ModelImporter::ImportModel("Assets/Models/Cerberus.fbx");
+		model = new Model("Assets/Models/Cube.fbx");
 		int w = Application::GetInstance().GetWindow().GetWidth();
 		int h = Application::GetInstance().GetWindow().GetHeight();
 		fbo = FrameBuffer::Create(w, h);
@@ -34,8 +34,11 @@ namespace Hypnosis {
 		{
 			fbo->Bind();
 			{
-				RenderCommand::Clear({ 0.1, 0.1, 0.1, 1 });
-				model->Draw();
+				RenderCommand::Clear({ 0.15, 0.15, 0.15, 1 });
+				for (auto& mesh : model->GetMeshes())
+				{
+					Renderer::Submit(mesh->GetVertexArray());
+				}
 			}
 			fbo->Unbind();
 		}
@@ -50,7 +53,7 @@ namespace Hypnosis {
 		if (viewportSize.x != dimensions.x || viewportSize.y != dimensions.y)
 		{
 			fbo->Resize(dimensions.x, dimensions.y);
-			Renderer::OnResize(dimensions.x, dimensions.y);
+			RenderCommand::OnResize(dimensions.x, dimensions.y);
 			//camera.SetApsectRatio(dimensions.x / dimensions.y);
 			ZN_TRACE("Viewport Resized");
 			viewportSize = { dimensions.x, dimensions.y };

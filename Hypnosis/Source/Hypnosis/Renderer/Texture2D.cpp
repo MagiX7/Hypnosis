@@ -6,7 +6,7 @@
 
 namespace Hypnosis {
 
-	std::shared_ptr<Hypnosis::Texture2D> Hypnosis::Texture2D::Create(const std::string& path)
+	Ref<Hypnosis::Texture2D> Hypnosis::Texture2D::Create(const std::string& path)
 	{
 		switch (Renderer::GetAPI())
 		{

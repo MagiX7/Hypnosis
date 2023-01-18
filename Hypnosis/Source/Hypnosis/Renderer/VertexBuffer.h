@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hypnosis/Core/Core.h"
+
 #include "Vertex.h"
 #include "BufferLayout.h"
 
@@ -17,7 +19,7 @@ namespace Hypnosis {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		static std::shared_ptr<VertexBuffer> Create(Vertex* vertices, uint32_t size);
+		static Ref<VertexBuffer> Create(Vertex* vertices, uint32_t size);
 
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;

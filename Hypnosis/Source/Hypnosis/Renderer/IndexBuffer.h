@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hypnosis/Core/Core.h"
+
 #include <memory>
 
 namespace Hypnosis {
@@ -14,7 +16,7 @@ namespace Hypnosis {
 
 		virtual uint32_t GetCount() const = 0;
 
-		static std::shared_ptr<IndexBuffer> Create(uint32_t* indices, uint32_t count);
+		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
 	};
 
 }

@@ -6,7 +6,7 @@
 
 namespace Hypnosis {
 
-	std::shared_ptr<VertexBuffer> VertexBuffer::Create(Vertex* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(Vertex* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{

@@ -6,7 +6,7 @@
 
 namespace Hypnosis {
 
-	std::shared_ptr<FrameBuffer> FrameBuffer::Create(int w, int h)
+	Ref<FrameBuffer> FrameBuffer::Create(int w, int h)
 	{
 		switch (Renderer::GetAPI())
 		{

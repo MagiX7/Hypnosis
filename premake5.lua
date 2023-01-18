@@ -21,3 +21,4 @@ group "Dependencies"
 
 include "Hypnosis"
 include "Hypnosis Editor"
+include "Sandbox"

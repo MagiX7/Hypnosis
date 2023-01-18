@@ -6,7 +6,7 @@
 
 namespace Hypnosis {
 
-	std::shared_ptr<Shader> Shader::Create(const std::string& path)
+	Ref<Shader> Shader::Create(const std::string& path)
 	{
 		switch (Renderer::GetAPI())
 		{

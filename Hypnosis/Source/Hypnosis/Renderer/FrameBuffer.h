@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hypnosis/Core/Core.h"
+
 #include <memory>
 
 namespace Hypnosis {
@@ -9,7 +11,7 @@ namespace Hypnosis {
 	public:
 		virtual ~FrameBuffer() {};
 
-		static std::shared_ptr<FrameBuffer> Create(int w, int h);
+		static Ref<FrameBuffer> Create(int w, int h);
 
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;

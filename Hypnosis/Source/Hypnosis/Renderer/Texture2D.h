@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hypnosis/Core/Core.h"
+
 #include <memory>
 #include <string>
 
@@ -10,7 +12,7 @@ namespace Hypnosis {
 	public:
 		virtual ~Texture2D() {};
 
-		static std::shared_ptr<Texture2D> Create(const std::string& path);
+		static Ref<Texture2D> Create(const std::string& path);
 
 		virtual void Bind(uint32_t slot = 0) = 0;
 

@@ -7,11 +7,11 @@
 
 namespace Hypnosis {
 
-	class EngineLayer
+	class Layer
 	{
 	public:
-		EngineLayer(const std::string& name = "Default Layer", bool enabled = true);
-		virtual ~EngineLayer();
+		Layer(const std::string& name = "Default Layer", bool enabled = true);
+		virtual ~Layer();
 
 		virtual void OnAttach() {};
 		virtual void OnDetach() {};

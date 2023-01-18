@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hypnosis/Core/Defs.h"
+#include "Hypnosis/Core/Core.h"
 
 namespace Hypnosis {
 
