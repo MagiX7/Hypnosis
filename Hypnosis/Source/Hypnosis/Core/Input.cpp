@@ -73,7 +73,7 @@ namespace Hypnosis {
 	void Input::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseScrolledEvent>(ZN_BIND_EVENT_FN(Input::OnMouseScrolled));
+		dispatcher.Dispatch<MouseScrolledEvent>(HS_BIND_EVENT_FN(Input::OnMouseScrolled));
 	}
 
 	void Input::ResetScrollStats()

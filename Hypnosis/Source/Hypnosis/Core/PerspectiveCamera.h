@@ -16,7 +16,7 @@ namespace Hypnosis {
 		~PerspectiveCamera();
 		void Update(TimeStep ts);
 
-		void Scroll(TimeStep ts);
+		bool Scroll(TimeStep ts);
 		void UpdateFovAndAspectRatio(float width, float height);
 		void SetApsectRatio(float value);
 
@@ -37,6 +37,8 @@ namespace Hypnosis {
 		bool HandleMovement(TimeStep ts);
 		void RecalculateMatrices();
 
+		void MouseRotate(const glm::vec2& delta);
+
 	private:
 		glm::vec3 position;
 		glm::vec3 direction;
@@ -45,7 +47,9 @@ namespace Hypnosis {
 		glm::vec3 up;
 		glm::vec3 forward;
 
-		glm::vec3 rotation;
+		//glm::vec3 rotation;
+		glm::quat rotation;
+		float angle;
 
 		glm::mat4 view;
 		glm::mat4 projection;

@@ -30,6 +30,7 @@
 
 // Camera
 #include "Hypnosis/Core/PerspectiveCamera.h"
+#include "Hypnosis/Renderer/EditorCamera.h"
 
 // Utils
 #include "Hypnosis/Utils/FileDialog.h"

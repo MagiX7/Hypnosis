@@ -16,6 +16,7 @@ namespace Hypnosis {
 		//OpenGLVertexBuffer();
 		//OpenGLVertexBuffer(float* vertices, int count);
 		OpenGLVertexBuffer(Vertex* vertices, uint32_t size);
+		OpenGLVertexBuffer(uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
 		void SetData(void* vertices, uint32_t size);

@@ -18,8 +18,11 @@ namespace Hypnosis {
 
 	private:
 		Model* model;
-		std::shared_ptr<FrameBuffer> fbo;
+		Ref<FrameBuffer> fbo;
+		Ref<Shader> shader;
 
 		glm::vec2 viewportSize;
+
+		EditorCamera camera;
 	};
 }

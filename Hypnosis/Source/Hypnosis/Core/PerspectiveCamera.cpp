@@ -38,16 +38,19 @@ namespace Hypnosis {
 
 	void PerspectiveCamera::Update(TimeStep ts)
 	{
-		HandleInput(ts);
+		//HandleInput(ts);
+		if (HandleMovement(ts))
+			RecalculateMatrices();
 	}
 
-	void PerspectiveCamera::Scroll(TimeStep ts)
+	bool PerspectiveCamera::Scroll(TimeStep ts)
 	{
 		if (float dy = Input::GetInstance()->GetMouseScrolDy())
 		{
 			position += dy * ts * 10 * forward;
-			RecalculateMatrices();
+			return true;
 		}
+		return false;
 	}
 
 	void PerspectiveCamera::UpdateFovAndAspectRatio(float width, float height)
@@ -93,12 +96,12 @@ namespace Hypnosis {
 		}
 		if (Input::GetInstance()->IsKeyPressed(KEY_D))
 		{
-			position += 0.5f * ts * glm::normalize(glm::cross(direction, up));
+			position -= 0.5f * ts * glm::normalize(glm::cross(direction, up));
 			needToRecalculate = true;
 		}
 		if (Input::GetInstance()->IsKeyPressed(KEY_A))
 		{
-			position -= 0.5f * ts * glm::normalize(glm::cross(direction, up));
+			position += 0.5f * ts * glm::normalize(glm::cross(direction, up));
 			needToRecalculate = true;
 		}
 		if (Input::GetInstance()->IsKeyPressed(KEY_E))
@@ -111,6 +114,24 @@ namespace Hypnosis {
 			position -= 0.5f * ts * up;
 			needToRecalculate = true;
 		}
+		if (Scroll(ts))
+		{
+			needToRecalculate = true;
+		}
+
+		float dx = Input::GetInstance()->GetMouseMotionX();
+		float dy = Input::GetInstance()->GetMouseMotionY();
+
+		if (dx || dy)
+		{
+			glm::quat x = glm::angleAxis(glm::radians(dx), glm::vec3(0, 1, 0));
+			glm::quat y = glm::angleAxis(glm::radians(dy), right);
+			glm::quat rot = x * y;
+			rotation = x * y;
+
+			needToRecalculate = true;
+		}
+
 
 		return needToRecalculate;
 	}
@@ -121,6 +142,7 @@ namespace Hypnosis {
 		// Should switch to quat
 		// Try with glm::rotate or glm::rotation;
 
+		//const glm::mat4 transform = glm::translate(glm::mat4(1.0), position) * glm::eulerAngleXYZ(rotation.x, rotation.y, rotation.z);
 		const glm::mat4 transform = glm::translate(glm::mat4(1.0), position) * glm::eulerAngleXYZ(rotation.x, rotation.y, rotation.z);
 		view = glm::inverse(transform);
 

@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include "Hypnosis/Renderer/RenderCommand.h"
+
 #include "Hypnosis/Renderer/VertexArray.h"
 #include "Hypnosis/Renderer/VertexBuffer.h"
 #include "Hypnosis/Renderer/IndexBuffer.h"
@@ -17,11 +19,11 @@ namespace Hypnosis {
 
 	void Mesh::Draw()
 	{
-		//vao->Bind();
-		//ibo->Bind();
-		//glDrawElements(GL_TRIANGLES, ibo->GetCount(), GL_UNSIGNED_INT, 0);
-		//ibo->Unbind();
-		//vao->Unbind();
+		vao->Bind();
+		ibo->Bind();
+		RenderCommand::DrawIndexed(vao);
+		ibo->Unbind();
+		vao->Unbind();
 	}
 
 	void Mesh::SetBuffers()

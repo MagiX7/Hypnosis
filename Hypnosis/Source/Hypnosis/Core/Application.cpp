@@ -23,7 +23,7 @@ namespace Hypnosis {
 		ZN_CORE_INFO("[INFO] Logging system initialized");
 		
 		window = std::make_unique<Window>(1720, 920);
-		window->SetEventCallback(ZN_BIND_EVENT_FN(Application::OnEvent));
+		window->SetEventCallback(HS_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
 
@@ -91,8 +91,8 @@ namespace Hypnosis {
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(ZN_BIND_EVENT_FN(Application::OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(ZN_BIND_EVENT_FN(Application::OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(HS_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(HS_BIND_EVENT_FN(Application::OnWindowResize));
 		Input::GetInstance()->OnEvent(e);
 		
 		for (auto it = layerStack.end(); it != layerStack.begin();)

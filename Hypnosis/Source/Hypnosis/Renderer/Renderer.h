@@ -1,11 +1,15 @@
 #pragma once
 
 #include "RenderCommand.h"
+#include "Shader.h"
+#include "Texture2D.h"
 
 #include <glm/glm.hpp>
 #include <memory>
 
-namespace Hypnosis {
+namespace Hypnosis {;
+
+	class Model;
 
 	class Renderer
 	{
@@ -21,6 +25,7 @@ namespace Hypnosis {
 		static void EndScene();
 
 		static void Submit(const Ref<VertexArray>& vertexArray);
+		//static void Submit(Model* model);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
