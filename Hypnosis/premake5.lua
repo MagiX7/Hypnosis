@@ -42,6 +42,7 @@ project "Hypnosis"
         "%{IncludeDir.assimp}",
         "%{IncludeDir.node_editor}",
         "%{IncludeDir.parson}",
+        "%{IncludeDir.entt}",
     }
 
     links

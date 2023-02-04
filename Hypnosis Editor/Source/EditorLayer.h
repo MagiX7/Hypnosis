@@ -21,7 +21,15 @@ namespace Hypnosis {
 		Ref<FrameBuffer> fbo;
 		Ref<Shader> shader;
 
+		Ref<Texture2D> diffuse;
+		Ref<Texture2D> normals;
+		Ref<Texture2D> roughness;
+		Ref<Texture2D> metallic;
+
 		glm::vec2 viewportSize;
+
+		Ref<Scene> currentScene;
+		Entity dirLight;
 
 		EditorCamera camera;
 	};

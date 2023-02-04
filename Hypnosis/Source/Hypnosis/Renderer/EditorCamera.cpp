@@ -65,7 +65,8 @@ namespace Hypnosis {
 	void EditorCamera::OnUpdate(TimeStep ts)
 	{
 		// TODO: Mouse Scroll is not working
-		if (Input::GetInstance()->IsKeyPressed(KEY_LEFT_ALT))
+		//if (Input::GetInstance()->IsKeyPressed(KEY_LEFT_ALT))
+		if (Input::GetInstance()->IsMouseButtonPressed(MOUSE_RIGHT))
 		{
 			const glm::vec2& mouse{ Input::GetInstance()->GetMouseX(), Input::GetInstance()->GetMouseY() };
 			glm::vec2 delta = (mouse - initialMousePosition) * 0.003f;
@@ -73,34 +74,38 @@ namespace Hypnosis {
 			
 			if (Input::GetInstance()->IsMouseButtonPressed(MOUSE_MIDDLE))
 				MousePan(delta);
-			else if (Input::GetInstance()->IsMouseButtonPressed(MOUSE_RIGHT))
+			else if (Input::GetInstance()->IsMouseButtonPressed(MOUSE_LEFT))
 				MouseRotate(delta);
 			//else if (Input::GetInstance()->IsMouseButtonPressed(MOUSE_LEFT))
 			//	MouseZoom(delta.y);
+			
+			float speed = 5.0f;
+			if (Input::GetInstance()->IsKeyPressed(KEY_LEFT_SHIFT))
+				speed *= 2;
 
 			if (Input::GetInstance()->IsKeyPressed(KEY_W))
 			{
-				position += 5.0f * ts * GetForwardDirection();
+				position += speed * ts * GetForwardDirection();
 			}
 			if (Input::GetInstance()->IsKeyPressed(KEY_S))
 			{
-				position -= 5.0f * ts * GetForwardDirection();
+				position -= speed * ts * GetForwardDirection();
 			}
 			if (Input::GetInstance()->IsKeyPressed(KEY_D))
 			{
-				position += 5.0f * ts * GetRightDirection();
+				position += speed * ts * GetRightDirection();
 			}
 			if (Input::GetInstance()->IsKeyPressed(KEY_A))
 			{
-				position -= 5.0f * ts * GetRightDirection();
+				position -= speed * ts * GetRightDirection();
 			}
 			if (Input::GetInstance()->IsKeyPressed(KEY_Q))
 			{
-				position -= 5.0f * ts * GetUpDirection();
+				position -= speed * ts * GetUpDirection();
 			}
 			if (Input::GetInstance()->IsKeyPressed(KEY_E))
 			{
-				position += 5.0f * ts * GetUpDirection();
+				position += speed * ts * GetUpDirection();
 			}
 		}
 

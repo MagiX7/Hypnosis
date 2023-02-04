@@ -30,6 +30,7 @@ project "Hypnosis Editor"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.ImGui}",
+        "%{IncludeDir.entt}",
     }
 
     links

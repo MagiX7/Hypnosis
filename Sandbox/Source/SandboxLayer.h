@@ -16,6 +16,12 @@ public:
 	void OnEvent(Hypnosis::Event& e) override;
 
 private:
+	/*Hypnosis::Model* model;
+	Hypnosis::Ref<Hypnosis::Shader> shader;
 
+	Hypnosis::Ref<Hypnosis::Texture2D> diffuse;
+	Hypnosis::Ref<Hypnosis::Texture2D> normals;
+	Hypnosis::Ref<Hypnosis::Texture2D> roughness;
+	Hypnosis::Ref<Hypnosis::Texture2D> metallic;*/
 
 };

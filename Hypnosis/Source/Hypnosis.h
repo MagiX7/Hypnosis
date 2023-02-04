@@ -28,6 +28,11 @@
 // Resources
 #include "Hypnosis/Core/Resources/Model.h"
 
+// Scene
+#include "Hypnosis/Scene/Scene.h"
+#include "Hypnosis/Scene/Components.h"
+#include "Hypnosis/Scene/Entity.h"
+
 // Camera
 #include "Hypnosis/Core/PerspectiveCamera.h"
 #include "Hypnosis/Renderer/EditorCamera.h"
