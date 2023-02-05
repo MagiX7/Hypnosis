@@ -48,15 +48,15 @@ layout(location = 0) uniform sampler2D diffuseTexture;
 layout(location = 1) uniform sampler2D normalsTexture;
 layout(location = 2) uniform sampler2D metallicTexture;
 layout(location = 3) uniform sampler2D roughnessTexture;
-layout(location = 4) uniform sampler2D ambientOcclussionTexture;
-layout(location = 5) uniform samplerCube irradianceMap;
-layout(location = 6) uniform samplerCube skyboxPrefilterMap;;
-layout(location = 7) uniform sampler2D skyboxBrdf;
+//layout(location = 4) uniform sampler2D ambientOcclussionTexture;
+//layout(location = 5) uniform samplerCube irradianceMap;
+//layout(location = 6) uniform samplerCube skyboxPrefilterMap;
+//layout(location = 7) uniform sampler2D skyboxBrdf;
 
 uniform vec3 camPos;
 uniform float reflectionLod;
-uniform int skyboxReflectionEnabled;
-uniform int drawSkybox;
+//uniform int skyboxReflectionEnabled;
+//uniform int drawSkybox;
 
 out vec4 fragColor;
 
@@ -171,11 +171,11 @@ void main()
 	}
 
 	vec3 albedo = texture2D(diffuseTexture, vTexCoords).rgb;
-	vec3 irradiance = texture(irradianceMap, normal).rgb;
+	//vec3 irradiance = texture(irradianceMap, normal).rgb;
 	float metallic = texture2D(metallicTexture, vTexCoords).r;
 	float roughness = max(texture2D(roughnessTexture, vTexCoords).r, 0.01f);
 	
-	float ao = texture2D(ambientOcclussionTexture, vTexCoords).r;
+	//float ao = texture2D(ambientOcclussionTexture, vTexCoords).r;
 	
 	vec3 viewDir = normalize(camPos - vPosition);
 	
@@ -187,10 +187,10 @@ void main()
 	vec3 ks = F;
 	vec3 kd = 1.0 - ks;
 	kd *= 1.0 - metallic;
-	vec3 diffuse = irradiance * albedo;
+	vec3 diffuse = /*irradiance * */albedo;
 
 	vec3 ambient = kd * diffuse;
-	if (bool(skyboxReflectionEnabled) && bool(drawSkybox))
+	/*if (bool(skyboxReflectionEnabled) && bool(drawSkybox))
 	{
 		vec3 R = reflect(-viewDir, normal);
 		vec3 prefilteredColor = textureLod(skyboxPrefilterMap, R, roughness * reflectionLod).rgb;
@@ -198,7 +198,7 @@ void main()
 		vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
 
 		ambient += specular;
-	}
+	}*/
 	
 	color += ambient;
 

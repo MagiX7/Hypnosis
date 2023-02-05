@@ -2,6 +2,7 @@
 
 #include "Hypnosis/Core/Core.h"
 #include "Hypnosis/Core/Resources/Model.h"
+#include "Hypnosis/Scene/SceneCamera.h"
 
 #include <glm/glm.hpp>
 
@@ -56,6 +57,16 @@ namespace Hypnosis {
 		LightComponent(const LightComponent&) = default;
 		LightComponent(glm::vec3 dir, glm::vec4 color) : direction(dir), color(color) {}
 
+	};
+
+	struct CameraComponent
+	{
+		SceneCamera camera;
+		bool isPrimary = true;
+		bool fixedAspectRatio = false; // This is for handle resizing or not, depending on the user interests
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
 	};
 
 

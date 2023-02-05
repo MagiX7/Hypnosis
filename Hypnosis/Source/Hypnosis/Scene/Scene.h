@@ -18,10 +18,16 @@ namespace Hypnosis {
 
 		Entity CreateEntity(const std::string& name = std::string());
 
+		void OnViewportResize(uint32_t width, uint32_t height);
+
 	private:
 		entt::registry registry;
 
+		uint32_t viewportWidth = 0;
+		uint32_t viewportHeight = 0;
+
 		friend class Entity;
+		friend class SceneHierarchyPanel;
 	};
 
 }

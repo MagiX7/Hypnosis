@@ -2,6 +2,8 @@
 
 #include "Hypnosis.h"
 
+#include "Panels/SceneHierarchyPanel.h"
+
 namespace Hypnosis {
 
 	class EditorLayer : public Layer
@@ -30,7 +32,12 @@ namespace Hypnosis {
 
 		Ref<Scene> currentScene;
 		Entity dirLight;
+		Entity cameraEntity;
+		Entity cubeEntity;
 
-		EditorCamera camera;
+		EditorCamera editorCamera;
+
+		// Panels
+		SceneHierarchyPanel sceneHierarchyPanel;
 	};
 }

@@ -17,7 +17,7 @@ namespace Hypnosis {
 		template<typename T>
 		bool HasComponent() const
 		{
-			bool result = scene->registry.all_of<T>(handle);
+			bool result = scene->registry.has<T>(handle);
 			return result;
 		}
 
@@ -32,7 +32,7 @@ namespace Hypnosis {
 		template<typename T>
 		T& GetComponent()
 		{
-			HS_CORE_ASSERT(HasComponent<T>(), "Entity already has component");
+			HS_CORE_ASSERT(HasComponent<T>(), "Entity does not have component!");
 			return scene->registry.get<T>(handle);
 		}
 
@@ -44,6 +44,15 @@ namespace Hypnosis {
 		}
 
 		operator bool() const { return handle != entt::null; }
+		operator uint32_t () const { return (uint32_t)handle; }
+		bool operator==(const Entity& other) const
+		{
+			return handle == other.handle && scene == other.scene;
+		}
+		bool operator!=(const Entity& other) const
+		{
+			return !(*this == other);
+		}
 
 	private:
 		entt::entity handle = entt::null;
