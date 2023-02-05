@@ -33,7 +33,7 @@ namespace Hypnosis {
 
         if (std::find(extensions.begin(), extensions.end(), fileExtension) == extensions.end())
         {
-            ZN_CORE_ERROR("Model Format {0} from {1} not supported", fileExtension, path.c_str());
+            HS_CORE_ERROR("Model Format {0} from {1} not supported", fileExtension, path.c_str());
             return;
         }
 
@@ -41,14 +41,14 @@ namespace Hypnosis {
 
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
-            ZN_CORE_ERROR("Assimp error: {0}", importer.GetErrorString());
+            HS_CORE_ERROR("Assimp error: {0}", importer.GetErrorString());
             return;
         }
 
         //Model* model = new Model(path);
         ProcessNode(scene->mRootNode, scene, model);
 
-        ZN_CORE_INFO("[INFO] Model {0} loaded", path.c_str());
+        HS_CORE_INFO("[INFO] Model {0} loaded", path.c_str());
 
     }
 

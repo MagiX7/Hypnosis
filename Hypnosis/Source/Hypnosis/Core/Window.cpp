@@ -17,7 +17,7 @@ namespace Hypnosis {
 	static void GLFWErrorCallback(int err, const char* msg)
 	{
 		std::string error = "[ERROR]: (" + std::to_string(err) + ")" + msg;
-		ZN_CORE_ERROR(error);
+		HS_CORE_ERROR(error);
 	}
 
 	// TODO: Add window flags
@@ -43,13 +43,13 @@ namespace Hypnosis {
 
 		if (!glfwInit())
 		{
-			ZN_CORE_INFO("[INFO] GLFW Initialization Failed.");
+			HS_CORE_INFO("[INFO] GLFW Initialization Failed.");
 			ret = false;
 			return false;
 		}
 		else
 		{
-			ZN_CORE_INFO("[INFO] GLFW Initialization Correct.");
+			HS_CORE_INFO("[INFO] GLFW Initialization Correct.");
 		}
 
 		glfwSetErrorCallback(GLFWErrorCallback);
@@ -59,10 +59,10 @@ namespace Hypnosis {
 		context = new OpenGLContext(window);
 		if (!context->Init())
 		{
-			ZN_CORE_ERROR("[ERROR] Couldnt initialize OpenGL Context...");
+			HS_CORE_ERROR("[ERROR] Couldnt initialize OpenGL Context...");
 		}
 
-		if (window) ZN_CORE_INFO("[INFO] Window Initialization...");
+		if (window) HS_CORE_INFO("[INFO] Window Initialization...");
 
 		glfwSetWindowUserPointer(window, &props);
 

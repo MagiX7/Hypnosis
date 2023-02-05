@@ -32,6 +32,10 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		runtime "Debug"
+		defines
+		{
+			"HS_DEBUG"
+		}
 		buildoptions "/MTd"
 		symbols "on"
 

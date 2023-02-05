@@ -23,13 +23,13 @@ namespace Hypnosis {
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		if (status == 0)
 		{
-			ZN_CORE_INFO("[INFO] GLAD Loader Failed.");
+			HS_CORE_INFO("[INFO] GLAD Loader Failed.");
 			return false;
 		}
 		else
 		{
-			ZN_CORE_INFO("[INFO] GLAD Loader Correct.");
-			ZN_CORE_INFO("[INFO] OpenGL Version: {0}", glGetString(GL_VERSION));
+			HS_CORE_INFO("[INFO] GLAD Loader Correct.");
+			HS_CORE_INFO("[INFO] OpenGL Version: {0}", glGetString(GL_VERSION));
 		}
 	}
 

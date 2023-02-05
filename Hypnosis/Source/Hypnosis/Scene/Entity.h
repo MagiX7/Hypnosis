@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-#include "Hypnosis/Core/Log.h"
+#include "Hypnosis/Core/Core.h"
 
 #include <entt.hpp>
 
@@ -17,17 +17,14 @@ namespace Hypnosis {
 		template<typename T>
 		bool HasComponent() const
 		{
-			return scene->registry.any_of<T>(handle);
+			bool result = scene->registry.all_of<T>(handle);
+			return result;
 		}
 
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
-			if (!HasComponent<T>())
-			{
-				//ZN_CORE_FATAL("Entity already has component");
-				//return NULL;
-			}
+			HS_CORE_ASSERT(!HasComponent<T>(), "Entity already has component");
 			// std::forward is like a flag to not unpack the arguments here and forward them to entt
 			return scene->registry.emplace<T>(handle, std::forward<Args>(args)...);
 		}
@@ -35,22 +32,14 @@ namespace Hypnosis {
 		template<typename T>
 		T& GetComponent()
 		{
-			if (!HasComponent<T>())
-			{
-				//ZN_CORE_FATAL("Entity already has component");
-				//return NULL;
-			}
+			HS_CORE_ASSERT(HasComponent<T>(), "Entity already has component");
 			return scene->registry.get<T>(handle);
 		}
 
 		template<typename T>
 		void RemoveComponent()
 		{
-			if (!HasComponent<T>())
-			{
-				ZN_CORE_FATAL("Entity does not have component");
-				return;
-			}
+			HS_CORE_ASSERT(HasComponent<T>(), "Entity does not have component");
 			scene->registry.remove<T>(handle);
 		}
 

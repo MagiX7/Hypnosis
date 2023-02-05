@@ -88,7 +88,7 @@ namespace Hypnosis {
 
 		GLenum err = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (err != GL_FRAMEBUFFER_COMPLETE)
-			ZN_CORE_ERROR("Framebuffer is Incomplete. Error {0}", glGetString(err));
+			HS_CORE_ERROR("Framebuffer is Incomplete. Error {0}", glGetString(err));
 
 	}
 

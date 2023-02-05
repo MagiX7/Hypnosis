@@ -46,7 +46,7 @@ namespace Hypnosis {
 		{
 			char infoLog[512];
 			glGetShaderInfoLog(shader, 512, NULL, infoLog);
-			ZN_CORE_ERROR("{0} Compute Shader compilation failed {1}", name, infoLog);
+			HS_CORE_ERROR("{0} Compute Shader compilation failed {1}", name, infoLog);
 		}
 
 		rendererID = glCreateProgram();
@@ -59,11 +59,11 @@ namespace Hypnosis {
 		{
 			char infoLog[512];
 			glGetProgramInfoLog(rendererID, 512, NULL, infoLog);
-			ZN_CORE_ERROR("{0} Compute Shader linking failed {1}", name, infoLog);
+			HS_CORE_ERROR("{0} Compute Shader linking failed {1}", name, infoLog);
 		}
 		else
 		{
-			ZN_CORE_INFO("{0} Compute Shader linked successfully!", name);
+			HS_CORE_INFO("{0} Compute Shader linked successfully!", name);
 		}
 
 		glDetachShader(rendererID, shader);
@@ -155,7 +155,7 @@ namespace Hypnosis {
 		}
 		else
 		{
-			ZN_CORE_ERROR("{0}: Could not locate the Compute Shader", name);
+			HS_CORE_ERROR("{0}: Could not locate the Compute Shader", name);
 		}
 
 		return ret;

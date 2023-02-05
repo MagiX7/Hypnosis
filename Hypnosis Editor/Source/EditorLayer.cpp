@@ -95,7 +95,7 @@ namespace Hypnosis {
 			fbo->Resize(dimensions.x, dimensions.y);
 			RenderCommand::OnResize(dimensions.x, dimensions.y);
 			camera.SetViewportSize(dimensions.x, dimensions.y);
-			ZN_TRACE("Viewport Resized");
+			HS_TRACE("Viewport Resized");
 			viewportSize = { dimensions.x, dimensions.y };
 		}
 

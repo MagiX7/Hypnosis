@@ -20,7 +20,7 @@ namespace Hypnosis {
 		instance = this;
 		
 		Log::Init();
-		ZN_CORE_INFO("[INFO] Logging system initialized");
+		HS_CORE_INFO("[INFO] Logging system initialized");
 		
 		window = std::make_unique<Window>(1720, 920);
 		window->SetEventCallback(HS_BIND_EVENT_FN(Application::OnEvent));

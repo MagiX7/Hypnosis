@@ -27,7 +27,7 @@ project "Hypnosis"
     defines
     {
         "_CRT_SECURE_NO_WARNINGS",
-        "GLFW_INCLUDE_NONE"
+        "GLFW_INCLUDE_NONE",
     }
 
     includedirs
@@ -63,7 +63,11 @@ project "Hypnosis"
         }
 
     filter "configurations:Debug"
-        defines {"SPDLOG_COMPILED_LIB"}
+        defines
+        {
+            "SPDLOG_COMPILED_LIB",
+            "HS_DEBUG",
+        }
         runtime "Debug"
         buildoptions "/MTd"
         symbols "On"

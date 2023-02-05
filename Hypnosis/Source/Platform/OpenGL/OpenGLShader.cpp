@@ -226,7 +226,7 @@ namespace Hypnosis {
 		{
 			char infoLog[512];
 			glGetShaderInfoLog(vs, 512, NULL, infoLog);
-			ZN_CORE_ERROR("{0} Vertex Shader compilation failed {1}", name, infoLog);
+			HS_CORE_ERROR("{0} Vertex Shader compilation failed {1}", name, infoLog);
 		}
 
 		unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
@@ -239,7 +239,7 @@ namespace Hypnosis {
 		{
 			char infoLog[512];
 			glGetShaderInfoLog(fs, 512, NULL, infoLog);
-			ZN_CORE_ERROR("{0} Fragment Shader compilation failed {1}", name, infoLog);
+			HS_CORE_ERROR("{0} Fragment Shader compilation failed {1}", name, infoLog);
 		}
 
 		rendererID = glCreateProgram();
@@ -254,7 +254,7 @@ namespace Hypnosis {
 		{
 			char infoLog[512];
 			glGetProgramInfoLog(rendererID, 512, NULL, infoLog);
-			ZN_CORE_ERROR("{0} shader linking failed {1}", name, infoLog);
+			HS_CORE_ERROR("{0} shader linking failed {1}", name, infoLog);
 		}
 
 		glDetachShader(rendererID, vs);
@@ -286,7 +286,7 @@ namespace Hypnosis {
 		}
 		else
 		{
-			ZN_CORE_ERROR("Could not locate the shader: {0}", name);
+			HS_CORE_ERROR("Could not locate the shader: {0}", name);
 		}
 
 		return ret;

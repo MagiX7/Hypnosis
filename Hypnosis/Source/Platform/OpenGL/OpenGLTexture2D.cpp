@@ -30,7 +30,7 @@ namespace Hypnosis {
 
 		if (!data)
 		{
-			ZN_CORE_ERROR("Texture {0} couldn't be loaded.", path);
+			HS_CORE_ERROR("Texture {0} couldn't be loaded.", path);
 			return;
 		}
 

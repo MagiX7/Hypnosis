@@ -2,6 +2,7 @@
 
 // Core
 #include "Hypnosis/Core/Core.h"
+#include "Hypnosis/Core/Assert.h"
 
 #include "Hypnosis/Core/Application.h"
 #include "Hypnosis/Core/Layer.h"

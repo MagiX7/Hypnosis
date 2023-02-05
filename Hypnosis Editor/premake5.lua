@@ -50,7 +50,11 @@ project "Hypnosis Editor"
 
     filter "configurations:Debug"
         -- defines here
-        defines {"SPDLOG_COMPILED_LIB"}
+        defines
+        {
+            "SPDLOG_COMPILED_LIB",
+            "HS_DEBUG",
+        }
         runtime "Debug"
         buildoptions "/MTd"
         symbols "On"
