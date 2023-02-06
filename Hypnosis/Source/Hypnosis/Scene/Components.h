@@ -63,7 +63,7 @@ namespace Hypnosis {
 	{
 		SceneCamera camera;
 		bool isPrimary = true;
-		bool fixedAspectRatio = false; // This is for handle resizing or not, depending on the user interests
+		bool fixedAspectRatio = false; // This is for handle resizing or not, depending on the user interests. Still to implement
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;

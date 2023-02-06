@@ -88,6 +88,75 @@ namespace Hypnosis {
 			}
 		}
 
+		ImGui::Dummy({ 0, 5 });
+		ImGui::Separator();
+		ImGui::Dummy({ 0, 5 });
+
+		if (entity.HasComponent<CameraComponent>())
+		{
+			if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
+			{
+				auto& cameraComponent = entity.GetComponent<CameraComponent>();
+				auto& camera = cameraComponent.camera;
+
+				const char* types[] = { "Perspective", "Ortographic" };
+				const char* currentTypeString = types[(int)camera.GetProjectionType()];
+				if (ImGui::BeginCombo("Projection Type", currentTypeString))
+				{
+					for (int i = 0; i < 2; i++)
+					{
+						bool isSelected = currentTypeString == types[i];
+						if (ImGui::Selectable(types[i], isSelected))
+						{
+							currentTypeString = types[i];
+							camera.SetProjectionType((SceneCamera::ProjectionType)i);
+						}
+						
+						if (isSelected)
+						{
+							ImGui::SetItemDefaultFocus();
+						}
+					}
+					ImGui::EndCombo();
+				}
+
+				if (camera.GetProjectionType() == SceneCamera::ProjectionType::PERSPECTIVE)
+				{
+					float verticalFov = camera.GetVerticalFov();
+					if (ImGui::DragFloat("Vertical FOV", &verticalFov))
+						camera.SetVerticalFov(verticalFov);
+					
+					float near = camera.GetPerspectiveNearClip();
+					if (ImGui::DragFloat("Near", &near))
+						camera.SetPerspectiveNearClip(near);
+
+					float far = camera.GetPerspectiveFarClip();
+					if (ImGui::DragFloat("Far", &far))
+						camera.SetPerspectiveFarClip(far);
+				}
+				else if(camera.GetProjectionType() == SceneCamera::ProjectionType::ORTHOGRAPHIC)
+				{
+					float size = camera.GetOrthographicSize();
+					if (ImGui::DragFloat("Orthographic Size", &size))
+						camera.SetOrthographicSize(size);
+
+					float near = camera.GetOrthographicNearClip();
+					if (ImGui::DragFloat("Near", &near))
+						camera.SetOrthographicNearClip(near);
+
+					float far = camera.GetOrthographicFarClip();
+					if (ImGui::DragFloat("Far", &far))
+						camera.SetOrthographicFarClip(far);
+
+					ImGui::Checkbox("Fixed Aspect Ratio", &cameraComponent.fixedAspectRatio);
+				}
+			}
+		}
+
+		ImGui::Dummy({ 0, 5 });
+		ImGui::Separator();
+		ImGui::Dummy({ 0, 5 });
+
 		if (entity.HasComponent<LightComponent>())
 		{
 			if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
@@ -98,6 +167,8 @@ namespace Hypnosis {
 				ImGui::ColorPicker3("Color", glm::value_ptr(light.color), 0.1f);
 			}
 		}
+
+		// TODO: Camera Component UI
 
 
 	}

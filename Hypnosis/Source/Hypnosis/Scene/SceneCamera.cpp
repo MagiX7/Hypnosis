@@ -10,10 +10,25 @@ namespace Hypnosis {
 		RecalculateProjection();
 	}
 
-	void SceneCamera::SetPerspective(float yFov, float aspectRatio)
+	void SceneCamera::SetPerspective(float verticalFov, float nearClip, float farClip)
 	{
-		this->yFov = yFov;
-		this->aspectRatio = aspectRatio;
+		projectionType = ProjectionType::PERSPECTIVE;
+		
+		yFov = verticalFov;
+		perspectiveNear = nearClip;
+		perspectiveFar = farClip;
+
+		RecalculateProjection();
+	}
+
+	void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
+	{
+		projectionType = ProjectionType::ORTHOGRAPHIC;
+		
+		orthoSize = size;
+		orthoNear = nearClip;
+		orthoFar = farClip;
+
 		RecalculateProjection();
 	}
 
@@ -25,7 +40,20 @@ namespace Hypnosis {
 
 	void SceneCamera::RecalculateProjection()
 	{
-		projection = glm::perspective(glm::radians(yFov), aspectRatio, near, far);
+		if (projectionType == ProjectionType::PERSPECTIVE)
+		{
+			projection = glm::perspective(glm::radians(yFov), aspectRatio, perspectiveNear, perspectiveFar);
+		}
+		else if (projectionType == ProjectionType::ORTHOGRAPHIC)
+		{
+			float left = -orthoSize * aspectRatio * 0.5f;
+			float right = orthoSize * aspectRatio * 0.5f;
+			float bottom = -orthoSize * 0.5f;
+			float top = orthoSize * 0.5f;
+
+			projection = glm::ortho(left, right, bottom, top, orthoNear, orthoFar);
+		}
+
 	}
 
 }

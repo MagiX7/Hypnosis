@@ -62,8 +62,11 @@ namespace Hypnosis {
 				//currentScene->OnUpdate(ts);
 
 				shader->Bind();
-				shader->SetUniformMatrix4f("view", editorCamera.GetViewMatrix());
-				shader->SetUniformMatrix4f("projection", editorCamera.GetProjectionMatrix());
+				//shader->SetUniformMatrix4f("view", editorCamera.GetViewMatrix());
+				//shader->SetUniformMatrix4f("projection", editorCamera.GetProjectionMatrix());
+
+				shader->SetUniformMatrix4f("view", glm::inverse(cameraEntity.GetComponent<TransformComponent>().transform));
+				shader->SetUniformMatrix4f("projection", cameraEntity.GetComponent<CameraComponent>().camera.GetProjection());
 
 				shader->SetUniformMatrix4f("model", cubeEntity.GetComponent<TransformComponent>().transform);
 				//shader->SetUniformMatrix4f("model", model->GetTransform());
@@ -73,7 +76,9 @@ namespace Hypnosis {
 				shader->SetUniformVec3f("dirLight.color", light.color);
 				shader->SetUniform1f("dirLight.intensity", light.intensity);
 
-				shader->SetUniformVec3f("camPos", editorCamera.GetPosition());
+				//shader->SetUniformVec3f("camPos", editorCamera.GetPosition());
+				shader->SetUniformVec3f("camPos", cameraEntity.GetComponent<TransformComponent>().transform[3]);
+
 
 				diffuse->Bind(0);
 				shader->SetUniform1i("diffuseTexture", 0);
@@ -106,6 +111,7 @@ namespace Hypnosis {
 			fbo->Resize(dimensions.x, dimensions.y);
 			RenderCommand::OnResize(dimensions.x, dimensions.y);
 			editorCamera.SetViewportSize(dimensions.x, dimensions.y);
+			cameraEntity.GetComponent<CameraComponent>().camera.SetViewportSize((uint32_t)dimensions.x, (uint32_t)dimensions.y);
 			currentScene->OnViewportResize(dimensions.x, dimensions.y);
 
 			HS_TRACE("Viewport Resized");
