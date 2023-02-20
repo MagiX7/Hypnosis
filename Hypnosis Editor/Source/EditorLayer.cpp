@@ -62,13 +62,13 @@ namespace Hypnosis {
 				//currentScene->OnUpdate(ts);
 
 				shader->Bind();
-				//shader->SetUniformMatrix4f("view", editorCamera.GetViewMatrix());
-				//shader->SetUniformMatrix4f("projection", editorCamera.GetProjectionMatrix());
+				shader->SetUniformMatrix4f("view", editorCamera.GetViewMatrix());
+				shader->SetUniformMatrix4f("projection", editorCamera.GetProjectionMatrix());
 
-				shader->SetUniformMatrix4f("view", glm::inverse(cameraEntity.GetComponent<TransformComponent>().transform));
-				shader->SetUniformMatrix4f("projection", cameraEntity.GetComponent<CameraComponent>().camera.GetProjection());
+				//shader->SetUniformMatrix4f("view", glm::inverse(cameraEntity.GetComponent<TransformComponent>().GetTransform()));
+				//shader->SetUniformMatrix4f("projection", cameraEntity.GetComponent<CameraComponent>().camera.GetProjection());
 
-				shader->SetUniformMatrix4f("model", cubeEntity.GetComponent<TransformComponent>().transform);
+				shader->SetUniformMatrix4f("model", cubeEntity.GetComponent<TransformComponent>().GetTransform());
 				//shader->SetUniformMatrix4f("model", model->GetTransform());
 
 				auto light = dirLight.GetComponent<LightComponent>();
@@ -77,7 +77,7 @@ namespace Hypnosis {
 				shader->SetUniform1f("dirLight.intensity", light.intensity);
 
 				//shader->SetUniformVec3f("camPos", editorCamera.GetPosition());
-				shader->SetUniformVec3f("camPos", cameraEntity.GetComponent<TransformComponent>().transform[3]);
+				shader->SetUniformVec3f("camPos", cameraEntity.GetComponent<TransformComponent>().position);
 
 
 				diffuse->Bind(0);

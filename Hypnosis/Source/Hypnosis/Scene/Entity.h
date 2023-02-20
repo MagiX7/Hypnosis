@@ -26,7 +26,9 @@ namespace Hypnosis {
 		{
 			HS_CORE_ASSERT(!HasComponent<T>(), "Entity already has component");
 			// std::forward is like a flag to not unpack the arguments here and forward them to entt
-			return scene->registry.emplace<T>(handle, std::forward<Args>(args)...);
+			T& comp = scene->registry.emplace<T>(handle, std::forward<Args>(args)...);
+			scene->OnComponentAdded<T>(*this, comp);
+			return comp;
 		}
 
 		template<typename T>
@@ -45,6 +47,7 @@ namespace Hypnosis {
 
 		operator bool() const { return handle != entt::null; }
 		operator uint32_t () const { return (uint32_t)handle; }
+		operator entt::entity() const { return handle; }
 		bool operator==(const Entity& other) const
 		{
 			return handle == other.handle && scene == other.scene;

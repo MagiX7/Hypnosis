@@ -34,7 +34,7 @@ namespace Hypnosis {
 
 	void SceneCamera::SetViewportSize(uint32_t width, uint32_t height)
 	{
-		aspectRatio = (float)width / (float)height;
+		aspectRatio = (float)width / glm::max((float)height, 0.001f);
 		RecalculateProjection();
 	}
 

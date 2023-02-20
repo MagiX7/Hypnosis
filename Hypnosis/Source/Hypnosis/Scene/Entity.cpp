@@ -2,7 +2,8 @@
 
 namespace Hypnosis {
 
-	Entity::Entity(entt::entity entityHandle, Scene* context) : handle(entityHandle), scene(context)
+	Entity::Entity(entt::entity entityHandle, Scene* context)
+		: handle(entityHandle), scene(context)
 	{
 	}
 

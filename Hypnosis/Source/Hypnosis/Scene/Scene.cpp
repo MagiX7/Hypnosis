@@ -21,7 +21,7 @@ namespace Hypnosis {
 		// View for getting 1 component, group for 1+ components
 
 		Camera* primaryCamera = nullptr;
-		glm::mat4* cameraTransform = nullptr;
+		glm::mat4 cameraTransform;
 		{
 			auto view = registry.view<TransformComponent, CameraComponent>();
 			for (auto entity : view)
@@ -31,7 +31,7 @@ namespace Hypnosis {
 				if (camera.isPrimary)
 				{
 					primaryCamera = &camera.camera;
-					cameraTransform = &transform.transform;
+					cameraTransform = transform.GetTransform();
 					break;
 				}
 			}
@@ -62,6 +62,11 @@ namespace Hypnosis {
 		return entity;
 	}
 
+	void Scene::DestroyEntity(Entity entity)
+	{
+		registry.destroy(entity);
+	}
+
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
 		viewportWidth = width;
@@ -77,7 +82,44 @@ namespace Hypnosis {
 				cameraComponent.camera.SetViewportSize(width, height);
 			}
 		}
+	}
 
+
+	template<typename T>
+	void Scene::OnComponentAdded(Entity entity, T& component)
+	{
+		static_assert(false);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<TagComponent>(Entity entity, TagComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component)
+	{
+		component.camera.SetViewportSize(viewportWidth, viewportHeight);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<MeshComponent>(Entity entity, MeshComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<LightComponent>(Entity entity, LightComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<MaterialComponent>(Entity entity, MaterialComponent& component)
+	{
 	}
 
 }

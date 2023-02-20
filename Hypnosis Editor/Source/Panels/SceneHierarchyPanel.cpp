@@ -3,9 +3,68 @@
 #include "Hypnosis/Scene/Components.h"
 
 #include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Hypnosis {
+
+	static void DrawVec3Control(const std::string& label, glm::vec3& value, float resetValue = 0.0f, float columnWidth = 100.0f)
+	{
+		ImGui::PushID(label.c_str());
+
+		ImGui::Columns(2);
+		ImGui::SetColumnWidth(0, columnWidth);
+		ImGui::Text(label.c_str());
+		ImGui::NextColumn();
+
+		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
+
+		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+		ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+		if (ImGui::Button("X", buttonSize))
+			value.x = resetValue;
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::DragFloat("##X", &value.x, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+		if (ImGui::Button("Y", buttonSize))
+			value.y = resetValue;
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::DragFloat("##Y", &value.y, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.2f, 0.35f, 0.9f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
+		if (ImGui::Button("Z", buttonSize))
+			value.z = resetValue;
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::DragFloat("##Z", &value.z, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+
+		ImGui::PopStyleVar();
+
+		ImGui::Columns(1);
+
+		ImGui::PopID();
+	}
+
 
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
 	{
@@ -30,6 +89,17 @@ namespace Hypnosis {
 		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
 			selectedEntity = {};
 
+
+		// Right click on the panel
+		if (ImGui::BeginPopupContextWindow(0, 1, false))
+		{
+			if (ImGui::MenuItem("Create Empty Entity"))
+				context->CreateEntity("Empty Entity");
+
+			ImGui::EndPopup();
+		}
+
+
 		ImGui::End();
 
 
@@ -37,6 +107,40 @@ namespace Hypnosis {
 		if (selectedEntity)
 		{
 			DrawComponents(selectedEntity);
+
+			ImGui::Dummy({ 0, 10 });
+			ImGui::Separator();
+			ImGui::Dummy({ 0, 3 });
+
+			if (ImGui::Button("Add Component"))
+				ImGui::OpenPopup("Add");
+
+			// TODO: Think of moving it into a templated function
+			if (ImGui::BeginPopup("Add"))
+			{
+				if (ImGui::MenuItem("Mesh"))
+				{
+					selectedEntity.AddComponent<MeshComponent>();
+					ImGui::CloseCurrentPopup();
+				}
+				/*if (ImGui::MenuItem("Material"))
+				{
+					selectedEntity.AddComponent<MaterialComponent>();
+					ImGui::CloseCurrentPopup();
+				}*/
+				if (ImGui::MenuItem("Light"))
+				{
+					selectedEntity.AddComponent<LightComponent>();
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::MenuItem("Camera"))
+				{
+					selectedEntity.AddComponent<CameraComponent>();
+					ImGui::CloseCurrentPopup();
+				}
+
+				ImGui::EndPopup();
+			}
 		}
 
 		ImGui::End();
@@ -56,10 +160,26 @@ namespace Hypnosis {
 			selectedEntity = entity;
 		}
 
+		bool wantToDeleteEntity = false;
+		if (ImGui::BeginPopupContextItem())
+		{
+			if (ImGui::MenuItem("Delete Entity"))
+				wantToDeleteEntity = true;
+
+			ImGui::EndPopup();
+		}
+
 		// TODO: Call DrawNode recursively for childrens
 		if (opened)
 		{
 			ImGui::TreePop();
+		}
+
+		if (wantToDeleteEntity)
+		{
+			context->DestroyEntity(entity);
+			if (selectedEntity == entity)
+				selectedEntity = {};
 		}
 	}
 
@@ -79,22 +199,49 @@ namespace Hypnosis {
 			}
 		}
 
+		const ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap;
+
+
+
 		if (entity.HasComponent<TransformComponent>())
 		{
-			if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+			if (ImGui::CollapsingHeader("Transform", flags))
 			{
-				auto& transform = entity.GetComponent<TransformComponent>().transform;
-				ImGui::DragFloat3("Position", glm::value_ptr(transform[3]), 0.1f);
+				auto& transComp = entity.GetComponent<TransformComponent>();
+				DrawVec3Control("Position", transComp.position);
+				DrawVec3Control("Rotation", transComp.rotation);
+				DrawVec3Control("Scale", transComp.scale);
 			}
 		}
 
-		ImGui::Dummy({ 0, 5 });
-		ImGui::Separator();
-		ImGui::Dummy({ 0, 5 });
-
 		if (entity.HasComponent<CameraComponent>())
 		{
-			if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
+			ImGui::Dummy({ 0, 5 });
+			ImGui::Separator();
+			ImGui::Dummy({ 0, 5 });
+
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
+
+			bool opened = ImGui::CollapsingHeader("Camera", flags);
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+
+			if (ImGui::Button("+", { 20,25 }))
+			{
+				ImGui::OpenPopup("ComponentOptions");
+			}
+
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentOptions"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (opened)
 			{
 				auto& cameraComponent = entity.GetComponent<CameraComponent>();
 				auto& camera = cameraComponent.camera;
@@ -151,15 +298,20 @@ namespace Hypnosis {
 					ImGui::Checkbox("Fixed Aspect Ratio", &cameraComponent.fixedAspectRatio);
 				}
 			}
+
+			if (removeComponent)
+			{
+				entity.RemoveComponent<CameraComponent>();
+			}
 		}
 
-		ImGui::Dummy({ 0, 5 });
-		ImGui::Separator();
-		ImGui::Dummy({ 0, 5 });
 
 		if (entity.HasComponent<LightComponent>())
 		{
-			if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
+			ImGui::Dummy({ 0, 5 });
+			ImGui::Separator();
+			ImGui::Dummy({ 0, 5 });
+			if (ImGui::CollapsingHeader("Light", flags))
 			{
 				auto& light = entity.GetComponent<LightComponent>();
 				ImGui::DragFloat3("Direction", glm::value_ptr(light.direction), 0.1f);

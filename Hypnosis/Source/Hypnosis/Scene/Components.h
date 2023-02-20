@@ -10,15 +10,25 @@ namespace Hypnosis {
 
 	struct TransformComponent
 	{
-		glm::mat4 transform = glm::mat4(1.0f);
+		//glm::mat4 transform = glm::mat4(1.0f);
+
+		glm::vec3 position = glm::vec3(0);
+		glm::vec3 rotation = glm::vec3(0);
+		glm::vec3 scale = glm::vec3(1);
+
 
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
-		TransformComponent(const glm::mat4& transformMatrix) : transform(transformMatrix) {}
+		TransformComponent(const glm::vec3& pos) : position(pos) {}
 
-		operator glm::mat4& () { return transform; }
-		operator const glm::mat4& const () { return transform; }
+		glm::mat4 GetTransform() const
+		{
+			glm::mat4 rot = glm::rotate(glm::mat4(1.0f), rotation.x, {1,0,0})
+				* glm::rotate(glm::mat4(1.0f), rotation.y, { 0,1,0 })
+				* glm::rotate(glm::mat4(1.0f), rotation.z, { 0,0,1 });
 
+			return glm::translate(glm::mat4(1.0f), position) * rot * glm::scale(glm::mat4(1.0f), scale);
+		}
 	};
 
 	struct TagComponent
@@ -44,6 +54,11 @@ namespace Hypnosis {
 
 	struct MaterialComponent
 	{
+		//Ref<Material> material;
+
+		MaterialComponent() = default;
+		MaterialComponent(const MaterialComponent&) = default;
+		//MaterialComponent(Ref<Material> mat) : material(mat)
 
 	};
 
